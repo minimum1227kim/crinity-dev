@@ -209,6 +209,28 @@ crinity-dev/
 
 ---
 
+## 권장 설정
+
+### Agent Teams 활성화
+
+이 플러그인의 멀티 에이전트 워크플로우를 완전히 활용하려면 Claude Code `settings.json`에 다음 환경변수를 추가한다:
+
+```json
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  }
+}
+```
+
+설정 파일 위치:
+- **User 설정**: `~/.claude/settings.json`
+- **Project 설정**: `.claude/settings.json` (프로젝트 루트)
+
+> 이 설정은 에이전트 간 협업(팀) 기능을 활성화하여, 스킬에서 에이전트를 디스패치할 때 팀 컨텍스트를 공유할 수 있게 한다.
+
+---
+
 ## 커스터마이징
 
 ### 다른 프로젝트에 적용하기
