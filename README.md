@@ -19,18 +19,21 @@ claude plugin marketplace add https://github.com/minimum1227kim/crinity-dev.git
 # Step 2: 플러그인 설치
 claude plugin install crinity-dev
 
+### 또는 설치 범위(scope)를 지정할 수 있다:
+- user 범위 (기본값 — 모든 프로젝트에서 사용)
+claude plugin install crinity-dev -s user
+
+- project 범위 (현재 프로젝트에서만 사용)
+claude plugin install crinity-dev -s project
+
+- local 범위 (현재 프로젝트 디렉토리에 설치 및 사용)
+claude plugin install crinity-dev -s local
+
 # 설치 확인
 claude plugin list
 ```
 
-설치 범위(scope)를 지정할 수 있다:
 
-```bash
-# user 범위 (기본값 — 모든 프로젝트에서 사용)
-claude plugin install crinity-dev -s user
-
-# project 범위 (현재 프로젝트에서만 사용)
-claude plugin install crinity-dev -s project
 ```
 
 ### 방법 2: 세션 단위 로딩 (테스트용)
