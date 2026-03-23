@@ -76,7 +76,7 @@ Step 3-5 분석 결과를 바탕으로 변경 규모를 산정한다:
 
 ### Step 8: 계획 출력
 
-`references/planner-output-format.md`를 Read하여 해당 형식으로 분석 결과와 개발 계획을 출력한다.
+`.claude/crinity-dev/references/planner-output-format.md`를 Read하여 해당 형식으로 분석 결과와 개발 계획을 출력한다.
 
 ## 제약
 

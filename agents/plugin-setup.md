@@ -73,7 +73,7 @@ find . -name "package.json" -not -path "*/node_modules/*" -maxdepth 5 | \
 
 ---
 
-Phase 0 감지 결과에 따라 `references/plugin-setup-detection.md`에서 해당 Phase(1~4)를 읽어 실행한다.
+Phase 0 감지 결과에 따라 `.claude/crinity-dev/references/plugin-setup-detection.md`에서 해당 Phase(1~4)를 읽어 실행한다.
 
 ---
 

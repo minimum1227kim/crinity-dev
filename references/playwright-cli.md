@@ -265,10 +265,10 @@ playwright-cli close
 
 ## Specific tasks
 
-* **Request mocking** [playwright-cli/request-mocking.md](playwright-cli/request-mocking.md)
-* **Running Playwright code** [playwright-cli/running-code.md](playwright-cli/running-code.md)
-* **Browser session management** [playwright-cli/session-management.md](playwright-cli/session-management.md)
-* **Storage state (cookies, localStorage)** [playwright-cli/storage-state.md](playwright-cli/storage-state.md)
-* **Test generation** [playwright-cli/test-generation.md](playwright-cli/test-generation.md)
-* **Tracing** [playwright-cli/tracing.md](playwright-cli/tracing.md)
-* **Video recording** [playwright-cli/video-recording.md](playwright-cli/video-recording.md)
+* **Request mocking** [.claude/crinity-dev/references/playwright-cli/request-mocking.md](.claude/crinity-dev/references/playwright-cli/request-mocking.md)
+* **Running Playwright code** [.claude/crinity-dev/references/playwright-cli/running-code.md](.claude/crinity-dev/references/playwright-cli/running-code.md)
+* **Browser session management** [.claude/crinity-dev/references/playwright-cli/session-management.md](.claude/crinity-dev/references/playwright-cli/session-management.md)
+* **Storage state (cookies, localStorage)** [.claude/crinity-dev/references/playwright-cli/storage-state.md](.claude/crinity-dev/references/playwright-cli/storage-state.md)
+* **Test generation** [.claude/crinity-dev/references/playwright-cli/test-generation.md](.claude/crinity-dev/references/playwright-cli/test-generation.md)
+* **Tracing** [.claude/crinity-dev/references/playwright-cli/tracing.md](.claude/crinity-dev/references/playwright-cli/tracing.md)
+* **Video recording** [.claude/crinity-dev/references/playwright-cli/video-recording.md](.claude/crinity-dev/references/playwright-cli/video-recording.md)
