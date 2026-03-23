@@ -17,20 +17,20 @@ Claude Code는 **마켓플레이스** 시스템을 통해 플러그인을 관리
 claude plugin marketplace add https://github.com/minimum1227kim/crinity-dev.git
 
 # Step 2: 플러그인 설치
+#  2-a : 글로벌 설치
 claude plugin install crinity-dev
+
+#  2-b : project 범위 (현재 프로젝트에서만 사용)
+claude plugin install crinity-dev -s project
+
+#  2-c : local 범위 (현재 프로젝트 디렉토리에 설치 및 사용)
+claude plugin install crinity-dev -s local
 
 # 설치 확인
 claude plugin list
 ```
 
-설치 범위(scope)를 지정할 수 있다:
 
-```bash
-# user 범위 (기본값 — 모든 프로젝트에서 사용)
-claude plugin install crinity-dev -s user
-
-# project 범위 (현재 프로젝트에서만 사용)
-claude plugin install crinity-dev -s project
 ```
 
 ### 방법 2: 세션 단위 로딩 (테스트용)
@@ -38,18 +38,10 @@ claude plugin install crinity-dev -s project
 설치 없이 현재 세션에서만 플러그인을 로드한다:
 
 ```bash
-# 로컬 디렉토리에서 직접 로드
+# 로컬 디렉토리에 파일 업로드 후 직접 로드
 claude --plugin-dir /path/to/crinity-dev
 ```
 
-### 방법 3: 플러그인 매니페스트 검증 (개발용)
-
-배포 전 매니페스트 유효성을 확인한다:
-
-```bash
-claude plugin validate /path/to/crinity-dev
-# ✔ Validation passed
-```
 
 ### 설치 확인
 
