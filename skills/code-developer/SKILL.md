@@ -31,10 +31,16 @@ description: >
    - task.md의 `Depends on` 필드에 교차 의존이 있으면 순차 실행
 3. `code-refactorer` 에이전트 실행 (첫 회만)
    - task.md 존재 시: `task-manager` 스킬 (update 오퍼레이션) 호출
-4. `code-verifier` 에이전트 실행
+4. **검증 게이트 1** — `code-verifier` 에이전트 실행
    - task.md 존재 시: `task-manager` 스킬 (update 오퍼레이션) 호출
-5. `code-reviewer` 에이전트 실행
+   - **통과 기준**: 빌드 성공 + 변경 모듈 테스트 PASS + lint PASS (세 가지 모두)
+   - FAIL 시: 개발 단계(Step 1-2)로 복귀하지 않고, verifier가 내부에서 최대 3회 재시도
+   - verifier 3회 실패 시: 루프 반복 (Step 1부터)
+5. **검증 게이트 2** — `code-reviewer` 에이전트 실행
    - task.md 존재 시: `task-manager` 스킬 (update 오퍼레이션) 호출
+   - **검증 범위**: 컨벤션/보안/아키텍처 규칙 + **계획 대비 구현 정합성** + **기능적 정합성**
+   - 계획 대비 검증: 계획된 파일·API·DTO가 모두 올바르게 구현되었는지 확인
+   - 기능적 검증: FE↔BE API 매칭, Store↔DTO 구조, 에러 체인 완전성, i18n 동기화
 
 **완료 시**: task.md 모든 체크박스 완료 → `task-manager` 스킬 (complete 오퍼레이션) 호출
 
@@ -45,3 +51,5 @@ description: >
 | CRITICAL / HIGH | 루프 반복 (Step 1부터, 최대 3회) |
 | MEDIUM | 사용자 판단 요청 |
 | LOW only | 통과 (경고만 출력) |
+
+> **주의**: reviewer가 "계획 대비 누락 구현"을 HIGH로 보고한 경우, 해당 항목을 구현한 후 다시 verifier → reviewer를 순서대로 실행한다.
