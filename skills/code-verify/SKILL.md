@@ -8,8 +8,6 @@ description: >
 
 # code-verify Skill
 
-트리거 키워드: "빌드해줘", "테스트 돌려줘", "lint 확인해줘", "build", "test", "검증해줘"
-
 ## 실행 흐름
 
 1. `code-verifier` 에이전트 실행 (실패 시 내부 최대 3회 재시도)

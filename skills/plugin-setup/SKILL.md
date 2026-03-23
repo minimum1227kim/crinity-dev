@@ -10,8 +10,6 @@ description: >
 
 # plugin-setup Skill
 
-트리거 키워드: "초기 설정", "셋업", "setup", "플러그인 설정", "설정 파일 생성", "rule 생성", "rules 만들어줘"
-
 ## 실행 흐름
 
 ### Step 0: 대상 파일 결정 (스킬이 직접 수행)

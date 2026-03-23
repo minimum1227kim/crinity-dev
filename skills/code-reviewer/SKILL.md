@@ -10,8 +10,6 @@ description: >
 
 # code-reviewer Skill
 
-트리거 키워드: "코드 리뷰", "code review", "리뷰해줘", "검토해줘", "확인해줘", "컨벤션 체크", "convention check", "코드 검증", "코드 확인", "머지해도 돼?", "PR 올리기 전에", "코드 작성 후 검토"
-
 ## 실행 흐름
 
 1. `code-reviewer` 에이전트 실행

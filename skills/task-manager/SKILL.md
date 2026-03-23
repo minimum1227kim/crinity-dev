@@ -9,8 +9,6 @@ description: >
 
 # task-manager Skill
 
-트리거 키워드: "태스크 생성", "작업 관리", "진행 상황", "태스크 업데이트", "task list", "진행 상황 보여줘"
-
 ## 자동 트리거 조건
 
 `code-planner` 스킬 Step 4의 복잡도 threshold 기준을 따른다 (SSOT: `code-planner SKILL.md` Step 4).

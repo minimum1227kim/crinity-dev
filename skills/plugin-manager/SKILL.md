@@ -9,8 +9,6 @@ description: >
 
 # plugin-manager Skill
 
-트리거 키워드: "플러그인 검증", "시스템 검증", "일관성 검사", "plugin check", "plugin validate"
-
 ## 목적
 
 Skill/Agent/Rules/CLAUDE.md 4개 레이어 간 일관성을 자동 검증한다.

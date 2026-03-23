@@ -8,8 +8,6 @@ description: >
 
 # ui-brainstorm Skill
 
-트리거 키워드: "UI 대안 보여줘", "디자인 옵션", "레이아웃 비교", "몇 가지 대안", "UI brainstorm"
-
 ## 실행 흐름
 
 1. 설계 컨텍스트 확인

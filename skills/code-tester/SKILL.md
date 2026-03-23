@@ -10,8 +10,6 @@ description: >
 
 # code-tester Skill
 
-트리거 키워드: "브라우저 테스트", "UI 테스트", "화면 테스트", "동작 확인해줘", "E2E 테스트", "browser test"
-
 ## 실행 흐름
 
 테스트 루프 (최대 2회):

@@ -9,8 +9,6 @@ description: >
 
 # code-refactor Skill
 
-트리거 키워드: "리팩토링", "코드 개선", "refactor", "정리해줘", "컨벤션 맞춰줘"
-
 ## 실행 흐름
 
 1. `code-refactorer` 에이전트 실행
