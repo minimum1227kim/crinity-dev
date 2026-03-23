@@ -1,15 +1,6 @@
 ---
 name: frontend-developer
-description: "프론트엔드 코드 개발 전문 에이전트. 컴포넌트, Store, API 모듈, i18n, 라우터 등을 프로젝트 컨벤션에 맞게 작성한다.
-
-예시:
-- 상황: 프론트엔드 기능 개발
-  user: \"발송량 제한 안내 UI를 추가해줘\"
-  assistant: frontend-developer로 컴포넌트, Store, i18n을 개발합니다.
-
-- 상황: 기존 컴포넌트 수정
-  user: \"특정 컴포넌트에 에러 처리 추가해줘\"
-  assistant: frontend-developer로 기존 컴포넌트를 분석하고 수정합니다."
+description: "프론트엔드 코드 작성(컴포넌트, Store, API, i18n). rules 기반 컨벤션 준수."
 model: sonnet
 color: blue
 memory: project

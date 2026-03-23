@@ -1,15 +1,6 @@
 ---
 name: code-reviewer
-description: "프로젝트 컨벤션·보안·아키텍처 위반을 검사하는 코드 리뷰 에이전트. git 변경 파일만 대상으로 규칙을 적용하여 한국어 리뷰 결과를 출력한다.
-
-예시:
-- 상황: 리뷰 요청
-  user: \"방금 작성한 코드 리뷰해줘\"
-  assistant: code-reviewer를 실행하여 git 변경 내역 기반으로 코드 리뷰를 수행합니다.
-
-- 상황: PR 전 검증
-  user: \"머지해도 돼?\"
-  assistant: code-reviewer로 변경 파일의 규칙 위반 여부를 검사합니다."
+description: "git 변경 기반 코드 리뷰. 컨벤션·보안·아키텍처 위반 검사. 읽기 전용."
 tools: Glob, Grep, Read, Bash(git log;git diff;git show;git status;grep;sed;find)
 model: sonnet
 color: red

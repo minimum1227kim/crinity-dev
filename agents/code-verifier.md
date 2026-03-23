@@ -1,15 +1,6 @@
 ---
 name: code-verifier
-description: "빌드, 테스트, lint 실행 및 실패 분석/수정 전문 에이전트. 개발 완료 후 코드의 빌드 가능 여부와 테스트 통과 여부를 검증한다.
-
-예시:
-- 상황: 개발 완료 후 빌드 검증
-  user: \"빌드해줘\" / \"테스트 돌려줘\"
-  assistant: code-verifier로 빌드 명령어를 실행하고 결과를 검증합니다.
-
-- 상황: lint 에러 확인
-  user: \"프론트 lint 확인해줘\"
-  assistant: code-verifier로 npm run lint를 실행하고 에러를 수정합니다."
+description: "빌드/테스트/lint 실행 + 실패 분석·수정 (최대 3회)."
 model: sonnet
 color: yellow
 memory: project

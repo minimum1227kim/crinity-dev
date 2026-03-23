@@ -1,15 +1,6 @@
 ---
 name: code-refactorer
-description: "코드 품질 개선 전문 에이전트. 변경된 파일의 컨벤션 위반 수정, 중복 제거, 성능 최적화를 수행한다.
-
-예시:
-- 상황: 리팩토링 요청
-  user: \"방금 작성한 코드 리팩토링해줘\"
-  assistant: code-refactorer로 컨벤션 점검 및 코드 품질을 개선합니다.
-
-- 상황: 코드 정리 요청
-  user: \"코드 컨벤션 맞춰줘\"
-  assistant: code-refactorer로 변경된 파일의 컨벤션 위반을 수정합니다."
+description: "코드 품질 개선. 컨벤션 위반 수정, 중복 제거. 기능 변경 없음."
 model: sonnet
 color: orange
 memory: project

@@ -1,15 +1,6 @@
 ---
 name: backend-developer
-description: "백엔드 코드 개발 전문 에이전트. rules 파일에 정의된 프로젝트 컨벤션에 맞게 전 계층을 작성한다.
-
-예시:
-- 상황: 신규 API 엔드포인트 개발
-  user: \"일일 사용량 제한 API를 추가해줘\"
-  assistant: backend-developer로 rules에 정의된 레이어 구조에 따라 개발합니다.
-
-- 상황: 기존 Service 수정
-  user: \"특정 Service에 검사 로직을 추가해줘\"
-  assistant: backend-developer로 기존 패턴을 확인하고 로직을 추가합니다."
+description: "백엔드 전 계층(Entity→Controller) 코드 작성. rules 기반 컨벤션 준수."
 model: sonnet
 color: green
 memory: project

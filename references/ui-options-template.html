@@ -1,0 +1,124 @@
+<!--
+  ui-designer 에이전트가 Step 3에서 Read하여 템플릿 기반으로 실제 내용을 채워 작성한다.
+
+  프레임워크 중립 HTML 템플릿. 순수 HTML/CSS/JS로 작성되어 프레임워크에 의존하지 않는다.
+  프로젝트 프레임워크가 확인된 경우, 해당 CDN을 추가하여 실제 컴포넌트 스타일로 확장 가능하다.
+  {primary-color}는 frontend-ui.md에서 확인한 실제 색상값(hex)으로 대체한다.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{기능명} - UI Design Options</title>
+  <style>
+    :root {
+      --primary: {primary-color};
+      --accent: {accent-color};
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; color: #333; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+    h1 { font-size: 1.4rem; margin-bottom: 4px; }
+    .subtitle { font-size: 0.85rem; color: #888; margin-bottom: 24px; }
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 20px;
+    }
+    .option-card {
+      background: #fff; border: 2px solid #e0e0e0; border-radius: 8px;
+      padding: 20px; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .option-card:hover { border-color: var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .option-card.selected { border-color: var(--primary); background: #f5f8ff; }
+    .option-header { display: flex; align-items: center; margin-bottom: 12px; }
+    .option-number {
+      display: inline-flex; width: 32px; height: 32px;
+      border-radius: 50%; background: var(--primary); color: white;
+      align-items: center; justify-content: center;
+      font-weight: bold; margin-right: 10px; flex-shrink: 0;
+    }
+    .option-title { font-size: 1.1rem; font-weight: 600; }
+    .pros-cons { font-size: 0.85rem; color: #555; margin-bottom: 12px; }
+    .pros-cons div { padding: 2px 0; }
+    .mockup-area {
+      border: 1px dashed #ddd; border-radius: 8px;
+      padding: 16px; margin: 12px 0; min-height: 160px;
+      background: #fafafa;
+    }
+    .btn-select {
+      display: block; width: 100%; padding: 10px; margin-top: 12px;
+      background: var(--primary); color: white; border: none; border-radius: 6px;
+      font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: opacity 0.2s;
+    }
+    .btn-select:hover { opacity: 0.85; }
+    .alert-success {
+      margin-top: 20px; padding: 14px 18px; background: #e6f4ea; color: #1e7e34;
+      border: 1px solid #b7dfbf; border-radius: 6px; display: none;
+    }
+    .alert-success.visible { display: block; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>{기능명} — UI 옵션 비교</h1>
+    <p class="subtitle">
+      각 옵션을 확인한 후, <strong>채팅에서 번호를 입력</strong>해 주세요. (예: "2번")
+    </p>
+
+    <div class="options-grid">
+      <!-- Option 1 -->
+      <div class="option-card" data-option="1">
+        <div class="option-header">
+          <span class="option-number">1</span>
+          <span class="option-title">{Option 1 제목}</span>
+        </div>
+        <div class="pros-cons">
+          <div>✅ {장점1}</div>
+          <div>✅ {장점2}</div>
+          <div>⚠️ {단점1}</div>
+        </div>
+        <div class="mockup-area">
+          <!-- 실제 UI 목업 -->
+        </div>
+        <button class="btn-select" onclick="selectOption(1)">✓ Option 1 선택</button>
+      </div>
+
+      <!-- Option 2 -->
+      <div class="option-card" data-option="2">
+        <div class="option-header">
+          <span class="option-number">2</span>
+          <span class="option-title">{Option 2 제목}</span>
+        </div>
+        <div class="pros-cons">
+          <div>✅ {장점1}</div>
+          <div>✅ {장점2}</div>
+          <div>⚠️ {단점1}</div>
+        </div>
+        <div class="mockup-area">
+          <!-- 실제 UI 목업 -->
+        </div>
+        <button class="btn-select" onclick="selectOption(2)">✓ Option 2 선택</button>
+      </div>
+
+      <!-- Option 3, 4 필요 시 동일 패턴으로 추가 -->
+    </div>
+
+    <!-- 선택 확인 배너 -->
+    <div id="alert" class="alert-success"></div>
+  </div>
+
+  <script>
+    function selectOption(n) {
+      document.querySelectorAll('.option-card').forEach(function(c) { c.classList.remove('selected'); });
+      document.querySelector('[data-option="' + n + '"]').classList.add('selected');
+      var alert = document.getElementById('alert');
+      alert.textContent = 'Option ' + n + ' 선택됨. 채팅에서 "' + n + '번"을 입력해 주세요.';
+      alert.classList.add('visible');
+      // 에이전트 감지용 (get_page_text로 title 변경 확인)
+      document.title = 'SELECTED: Option ' + n;
+    }
+  </script>
+</body>
+</html>
