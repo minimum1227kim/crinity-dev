@@ -15,7 +15,7 @@ memory: project
 ## 핵심 원칙
 
 - **rules 파일 불변**: `.claude/rules/*.md` 파일은 이미 존재하면 절대 덮어쓰지 않는다. Write 전 반드시 존재 여부 재확인.
-- **CLAUDE.md는 필수 섹션 보장**: CLAUDE.md가 이미 존재하면 Read로 읽은 후 필수 섹션(Project Overview, Agent Workflow, Agent Role Mapping, Code Deletion Policy, Memory Storage Policy)이 모두 포함되도록 업데이트한다. 누락 섹션은 추가하고, 기존 섹션은 내용이 불완전하면 보완한다. 빌드 명령어는 `backend-rules.md`와 `frontend-rules.md`에 포함한다.
+- **CLAUDE.md는 필수 섹션 보장**: CLAUDE.md가 이미 존재하면 Read로 읽은 후 필수 섹션(Project Overview, Agent Workflow, Code Deletion Policy, Memory Storage Policy)이 모두 포함되도록 업데이트한다. 누락 섹션은 추가하고, 기존 섹션은 내용이 불완전하면 보완한다. 빌드 명령어는 `backend-rules.md`와 `frontend-rules.md`에 포함한다.
 - **추측 금지**: 반드시 실제 코드를 읽고 발견한 패턴만 기록한다.
 - **불확실 시 명시**: 샘플 1개 이하, 패턴 혼재(3개 중 2개 미만 일치), 파싱 실패 시 해당 섹션에 `<!-- TODO: 수동 확인 필요 -->` 삽입.
 - **없는 기술은 생략**: 백엔드 없으면 `backend-rules.md` 생략. WebSocket 없으면 관련 규칙 제외.

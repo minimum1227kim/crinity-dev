@@ -25,7 +25,7 @@ description: >
 2. `frontend-developer` 에이전트 실행 (프론트엔드 태스크 있을 때)
    - task.md 존재 시: `task-manager` 스킬 (update 오퍼레이션) 호출
 
-**1과 2의 병렬 처리 판단** (`code-planner` 스킬 Step 4의 병렬 처리 규칙을 따른다):
+**1과 2의 병렬 처리 판단**:
    - `fullstack`: 프론트엔드 API 계층이 백엔드 API 계층에 의존하므로, API 계층을 제외한 프론트엔드 태스크는 백엔드와 병렬 가능
    - `backend-only` / `frontend-only`: 해당 없음 (단일 에이전트만 실행)
    - task.md의 `Depends on` 필드에 교차 의존이 있으면 순차 실행
