@@ -9,30 +9,54 @@
 
 ## 설치
 
-### 방법 1: 마켓플레이스 등록 후 설치 (권장)
+### 방법 1: 마켓플레이스에서 설치 (권장)
+
+Claude Code 내에서 슬래시 커맨드로 설치한다:
 
 ```bash
-# Step 1: 마켓플레이스 등록
-claude plugin marketplace add https://github.com/minimum1227kim/crinity-dev.git
+# Step 1: 마켓플레이스 등록 (한 번만)
+/plugin marketplace add minimum1227kim/crinity-dev
 
 # Step 2: 플러그인 설치
-#  로컬 범위 (현재 프로젝트 디렉토리에 설치)
-claude plugin install crinity-dev -s local
-
-#  프로젝트 범위
-claude plugin install crinity-dev -s project
-
-#  글로벌 범위
-claude plugin install crinity-dev
-
-# 설치 확인
-claude plugin list
+/plugin install crinity-dev@crinity-dev
 ```
+
+또는 터미널에서 CLI로 설치:
+
+```bash
+# 마켓플레이스 등록
+claude plugin marketplace add minimum1227kim/crinity-dev
+
+# 플러그인 설치 (project 범위 권장 — 팀원과 동일 버전 공유)
+claude plugin install crinity-dev@crinity-dev -s project
+```
+
+> **범위 선택 가이드**: 이 플러그인은 프로젝트별 rules를 생성하고 팀원 간 동일 버전이 필요하므로 `project` 범위를 권장한다. `local`은 개인 실험용, `global`은 프로젝트별 버전 관리가 불가하여 비권장.
 
 ### 방법 2: 세션 단위 로딩 (테스트용)
 
 ```bash
 claude --plugin-dir /path/to/crinity-dev
+```
+
+### 방법 3: 팀 자동 설치
+
+프로젝트 `.claude/settings.json`에 추가하면 팀원이 프로젝트 폴더를 trust할 때 자동으로 마켓플레이스가 등록된다:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "crinity-dev": {
+      "source": {
+        "source": "github",
+        "repo": "minimum1227kim/crinity-dev"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "crinity-dev@crinity-dev": true
+  }
+}
 ```
 
 ### 설치 확인
@@ -48,8 +72,11 @@ Claude Code 실행 시 SessionStart 훅이 자동으로 환경을 점검한다:
 ### 업데이트 / 제거
 
 ```bash
-claude plugin update crinity-dev
-claude plugin uninstall crinity-dev
+# 마켓플레이스 최신 버전으로 업데이트
+/plugin marketplace update
+
+# 제거
+/plugin uninstall crinity-dev@crinity-dev
 ```
 
 ---
@@ -244,7 +271,7 @@ crinity-dev/
 
 | 위치 | 역할 | 관리 주체 |
 |------|------|---------|
-| **플러그인** (agents/, skills/) | 실행 로직 | `claude plugin update` |
+| **플러그인** (agents/, skills/) | 실행 로직 | `/plugin marketplace update` |
 | **프로젝트** (.claude/rules/) | 프로젝트별 규칙 | 개발자가 직접 수정 |
 | **프로젝트** (.claude/references/) | 참조 문서 | plugin-setup이 복사, 필요 시 개발자 수정 |
 | **CLAUDE.md** | 워크플로우 정의 | plugin-setup이 생성, 개발자가 커스텀 |
@@ -270,10 +297,11 @@ crinity-dev/
 
 ### 다른 프로젝트에 적용하기
 
-1. 플러그인 설치: `claude plugin install crinity-dev -s local`
-2. `/plugin-setup` 실행 → rules + references 자동 생성
-3. 생성된 파일 검토 및 프로젝트 맞춤 수정
-4. git 커밋
+1. 마켓플레이스 등록: `/plugin marketplace add minimum1227kim/crinity-dev`
+2. 플러그인 설치: `/plugin install crinity-dev@crinity-dev`
+3. `/plugin-setup` 실행 → rules + references 자동 생성
+4. 생성된 파일 검토 및 프로젝트 맞춤 수정
+5. git 커밋
 
 ### 에이전트/스킬 추가
 
