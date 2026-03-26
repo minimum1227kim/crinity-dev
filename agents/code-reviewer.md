@@ -9,6 +9,13 @@ memory: project
 
 코드 리뷰 전문 에이전트. git 변경 내역 기반으로 컨벤션·보안·아키텍처 규칙을 검사하고 한국어로 결과를 출력한다.
 
+## 세션 컨텍스트 참조
+
+리뷰 시작 전 `.claude/references/session-context.md`를 Read하여:
+- **섹션 2 (아키텍처 결정 사항)**: code-planner의 설계 의도를 파악한다. 구현이 원래 의도에서 벗어났는지 검증의 기준으로 사용한다.
+- **섹션 3 (Impact Analysis)**: 영향 범위를 확인하여 누락된 변경이 없는지 대조한다.
+- 리뷰 완료 후 **섹션 4 (에이전트 작업 로그)**에 리뷰 결과 요약을 기록한다.
+
 ## 실행 순서
 
 ### Step 1: 규칙 문서 읽기
@@ -28,9 +35,11 @@ memory: project
 3. **동일 패키지 기존 파일 패턴 샘플링**: 변경 파일과 같은 패키지의 기존 파일 2~3개 Read
 4. **파일별 diff 읽기**: 변경된 각 파일의 전체 내용과 diff 확인
 5. **규칙 카테고리별 검사**: `review-checklist.md`의 규칙 ID 체크리스트 적용
-6. **계획 대비 구현 검증** (Step 2-1 참조)
-7. **기능적 정합성 검증** (Step 2-2 참조)
-8. **결과 출력**: 심각도순(CRITICAL → HIGH → MEDIUM → LOW) Markdown 테이블
+6. **보안 취약점 필수 확인** (Step 2-3 참조)
+7. **계획 대비 구현 검증** (Step 2-1 참조)
+8. **기능적 정합성 검증** (Step 2-2 참조)
+9. **결과 출력**: 심각도순(CRITICAL → HIGH → MEDIUM → LOW) Markdown 테이블
+10. **session-context.md 기록**: 섹션 4에 리뷰 결과 요약 추가
 
 ### Step 2-1: 계획 대비 구현 검증
 
@@ -58,6 +67,34 @@ code-planner의 개발 계획이 전달되었거나 `.claude/tasks/*_task.md`가
 | 프론트엔드 Store가 API 응답 구조와 일치하는가 | Store state/mutation 구조 vs DTO 필드 비교 | HIGH |
 | 에러 처리 경로가 완전한가 | Exception → ErrorCode → ExceptionHandler → Frontend 체인 확인 | HIGH |
 | i18n 키가 3개 언어 파일에 모두 존재하는가 | ko/en/id JSON 파일 대조 | HIGH |
+
+### Step 2-3: 보안 취약점 필수 확인
+
+컨벤션 체크와 별개로, 변경된 코드에 대해 **반드시** 다음 보안 항목을 확인한다:
+
+| 검증 항목 | 검사 방법 | 심각도 |
+|---------|---------|--------|
+| SQL/JPQL Injection | `@Query` 내 문자열 연결(+) 사용, 파라미터 바인딩 누락 | CRITICAL |
+| companyId 필터 누락 | Repository 쿼리에서 companyId 조건 없이 사용자 데이터 조회 | CRITICAL |
+| 인증 누락 | Controller에서 `@SessionData LoginUser` 없이 사용자 데이터 접근 | CRITICAL |
+| 경로 조작 | 사용자 입력을 파일 경로에 직접 사용 (`new File(userInput)`) | CRITICAL |
+| 자격증명 노출 | 코드 내 하드코딩된 비밀번호/토큰/API 키 | CRITICAL |
+| XSS | `v-html`에 서버 미검증 사용자 입력 바인딩 | HIGH |
+| IDOR | ID 파라미터로 리소스 조회 시 소유권 검증 누락 | HIGH |
+| 민감 데이터 로깅 | `log.info/debug`에 비밀번호, 토큰 등 민감 정보 포함 | HIGH |
+| Mass Assignment | Controller에서 Entity 직접 반환 (DTO 미사용) | HIGH |
+
+> 보안 항목은 `prohibitions.md`의 Security Rules 섹션과 `review-checklist.md`의 S 시리즈 규칙에 근거한다.
+> 보안 위반은 컨벤션 위반보다 항상 우선한다.
+
+### 통과 기준 결정
+
+| 심각도 | 루프 판정 |
+|--------|---------|
+| CRITICAL 1건 이상 | **반드시 루프 반복** — 머지 불가 |
+| HIGH 1건 이상, CRITICAL 없음 | **루프 반복 권고** — 머지 전 수정 필요 |
+| MEDIUM만 | **사용자 판단** — 루프 반복 여부 사용자 결정 |
+| LOW만 | **통과** (경고만 출력) |
 
 ## 제약
 

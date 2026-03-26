@@ -31,9 +31,12 @@ Skill/Agent/Rules/CLAUDE.md 4개 레이어 간 일관성을 자동 검증한다.
 | 레이어 | 수집 대상 | 수집 항목 |
 |--------|---------|---------|
 | CLAUDE.md | 프로젝트 루트 `CLAUDE.md` | Agent Workflow 섹션, 필수 섹션 존재 여부 |
-| Agents | `.claude/agents/*.md` | frontmatter (name, description, tools, model), 본문 Step 목록 |
-| Skills | `.claude/skills/*/SKILL.md` | frontmatter (name, description), 위임 에이전트, 참조하는 에이전트 Step |
+| Agents | `.claude/agents/*.md` 또는 `.claude/crinity-dev/agents/*.md` | frontmatter (name, description, tools, model), 본문 Step 목록 |
+| Skills | `.claude/skills/*/SKILL.md` 또는 `.claude/crinity-dev/skills/*/SKILL.md` | frontmatter (name, description), 위임 에이전트, 참조하는 에이전트 Step |
 | Rules | `.claude/rules/*.md` | 파일명 목록 |
+| References | `.claude/references/*.md` | 파일명 목록 (에이전트 참조 문서) |
+
+> **경로 탐색 우선순위**: 네이티브 경로(`.claude/agents/`) 먼저 확인 → 없으면 플러그인 경로(`.claude/crinity-dev/agents/`) 확인. 둘 중 하나에 파일이 있으면 유효로 판정.
 
 ---
 
@@ -41,9 +44,9 @@ Skill/Agent/Rules/CLAUDE.md 4개 레이어 간 일관성을 자동 검증한다.
 
 | ID | 검사 | 심각도 |
 |----|------|--------|
-| PM-R01 | CLAUDE.md Agent Workflow에서 참조하는 에이전트가 `.claude/agents/`에 실제 파일로 존재하는가 | CRITICAL |
-| PM-R02 | `.claude/agents/`에 있는 에이전트 파일이 CLAUDE.md Agent Workflow에서 참조되고 있는가 | HIGH |
-| PM-R03 | Skill이 위임하는 에이전트가 `.claude/agents/`에 실제 파일로 존재하는가 | CRITICAL |
+| PM-R01 | CLAUDE.md Agent Workflow에서 참조하는 에이전트가 에이전트 디렉토리에 실제 파일로 존재하는가 (네이티브: `.claude/agents/` 또는 플러그인: `.claude/crinity-dev/agents/`) | CRITICAL |
+| PM-R02 | 에이전트 디렉토리에 있는 에이전트 파일이 CLAUDE.md Agent Workflow에서 참조되고 있는가 | HIGH |
+| PM-R03 | Skill이 위임하는 에이전트가 에이전트 디렉토리에 실제 파일로 존재하는가 (네이티브 또는 플러그인 경로) | CRITICAL |
 | PM-R04 | Skill이 참조하는 에이전트 출력 섹션(예: "변경 규모" 섹션)이 에이전트 출력 형식에 정의되어 있는가 | HIGH |
 | PM-R05 | Agent 본문에서 참조하는 rules 파일이 `.claude/rules/`에 실제 존재하는가 | HIGH |
 
@@ -93,7 +96,7 @@ Skill/Agent/Rules/CLAUDE.md 4개 레이어 간 일관성을 자동 검증한다.
 | ID | 검사 | 심각도 |
 |----|------|--------|
 | PM-O01 | 동일 threshold/설정값이 2개 이상 파일에 하드코딩되어 있는가 | HIGH |
-| PM-O02 | session-start.sh에서 체크하는 rules 파일 목록과 `.claude/rules/`의 실제 파일이 일치하는가 | MEDIUM |
+| PM-O02 | session-start.sh에서 체크하는 파일 목록(rules + references)과 실제 프로젝트 파일이 일치하는가 (hooks 미사용 시 SKIP) | MEDIUM |
 | PM-O03 | Agent 본문의 "필수 선행 읽기" 섹션에 나열된 rules 파일이 실제 존재하는가 | MEDIUM |
 
 **PM-O01 탐지 방법**: 숫자+단위가 포함된 threshold 패턴을 검색하고, 동일 값이 2개 이상 파일에서 발견되면 위반으로 표시한다. SSOT 참조 문구("~를 따른다", "SSOT:", "참조")가 있는 경우는 제외.

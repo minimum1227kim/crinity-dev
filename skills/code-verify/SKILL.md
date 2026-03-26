@@ -10,10 +10,20 @@ description: >
 
 ## 실행 흐름
 
-1. `code-verifier` 에이전트 실행 (실패 시 내부 최대 3회 재시도)
-2. 결과 출력 (PASS/FAIL 테이블 + 수정 내역 + 미해결 사항)
+### Step 1: 검증 에이전트 실행
 
-## 결과 처리
+```
+Agent tool 호출:
+  - subagent_type: "crinity-dev:code-verifier"
+  - prompt: "변경 모듈의 빌드, 테스트, lint를 검증하라. 실패 시 내부에서 최대 3회 수정 후 재시도."
+  - description: "빌드/테스트 검증"
+```
+
+### Step 2: 결과 출력
+
+에이전트가 반환한 결과(PASS/FAIL 테이블 + 수정 내역 + 미해결 사항)를 사용자에게 전달한다.
+
+## 결과 처리 가이드
 
 | 결과 | 처리 |
 |------|------|

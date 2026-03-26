@@ -265,10 +265,10 @@ playwright-cli close
 
 ## Specific tasks
 
-* **Request mocking** [.claude/crinity-dev/references/playwright-cli/request-mocking.md](.claude/crinity-dev/references/playwright-cli/request-mocking.md)
-* **Running Playwright code** [.claude/crinity-dev/references/playwright-cli/running-code.md](.claude/crinity-dev/references/playwright-cli/running-code.md)
-* **Browser session management** [.claude/crinity-dev/references/playwright-cli/session-management.md](.claude/crinity-dev/references/playwright-cli/session-management.md)
-* **Storage state (cookies, localStorage)** [.claude/crinity-dev/references/playwright-cli/storage-state.md](.claude/crinity-dev/references/playwright-cli/storage-state.md)
-* **Test generation** [.claude/crinity-dev/references/playwright-cli/test-generation.md](.claude/crinity-dev/references/playwright-cli/test-generation.md)
-* **Tracing** [.claude/crinity-dev/references/playwright-cli/tracing.md](.claude/crinity-dev/references/playwright-cli/tracing.md)
-* **Video recording** [.claude/crinity-dev/references/playwright-cli/video-recording.md](.claude/crinity-dev/references/playwright-cli/video-recording.md)
+* **Request mocking** [.claude/references/playwright-cli/request-mocking.md](.claude/references/playwright-cli/request-mocking.md)
+* **Running Playwright code** [.claude/references/playwright-cli/running-code.md](.claude/references/playwright-cli/running-code.md)
+* **Browser session management** [.claude/references/playwright-cli/session-management.md](.claude/references/playwright-cli/session-management.md)
+* **Storage state (cookies, localStorage)** [.claude/references/playwright-cli/storage-state.md](.claude/references/playwright-cli/storage-state.md)
+* **Test generation** [.claude/references/playwright-cli/test-generation.md](.claude/references/playwright-cli/test-generation.md)
+* **Tracing** [.claude/references/playwright-cli/tracing.md](.claude/references/playwright-cli/tracing.md)
+* **Video recording** [.claude/references/playwright-cli/video-recording.md](.claude/references/playwright-cli/video-recording.md)

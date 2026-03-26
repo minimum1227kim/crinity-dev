@@ -26,6 +26,7 @@ description: >
 | UI 규칙 | `.claude/rules/frontend-ui.md` | 없으면 생성 / 있으면 스킵 |
 | 금지 규칙 | `.claude/rules/prohibitions.md` | 없으면 생성 / 있으면 스킵 |
 | 리뷰 체크리스트 | `.claude/rules/review-checklist.md` | 없으면 생성 / 있으면 스킵 |
+| 참조 문서 | `.claude/references/` | 플러그인 references를 프로젝트로 복사 (없으면 복사 / 있으면 스킵) |
 
 **CLAUDE.md 필수 섹션** (플러그인 동작에 필요): `## Project Overview`, `## Agent Workflow`, `## Code Deletion Policy`, `## Memory Storage Policy`
 

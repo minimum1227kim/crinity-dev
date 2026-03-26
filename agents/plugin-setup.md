@@ -19,6 +19,11 @@ memory: project
 - **추측 금지**: 반드시 실제 코드를 읽고 발견한 패턴만 기록한다.
 - **불확실 시 명시**: 샘플 1개 이하, 패턴 혼재(3개 중 2개 미만 일치), 파싱 실패 시 해당 섹션에 `<!-- TODO: 수동 확인 필요 -->` 삽입.
 - **없는 기술은 생략**: 백엔드 없으면 `backend-rules.md` 생략. WebSocket 없으면 관련 규칙 제외.
+- **기술 스택 버전 자동 감지 강화**: 단순히 파일을 만드는 것에 그치지 않고, 기존 코드베이스의 기술 스택 버전(Spring Boot 2.x vs 3.x, Vue 2 vs 3, Java 8 vs 17 등)을 **빌드 파일과 실제 import문**에서 정확히 감지하여 rules에 반영한다. 감지 방법:
+  - `build.gradle`/`pom.xml`에서 프레임워크 버전 추출
+  - `package.json`에서 프론트엔드 라이브러리 버전 추출
+  - 실제 Java 소스의 `import` 패턴으로 사용 라이브러리 확인 (예: `javax.*` vs `jakarta.*`로 Spring Boot 2 vs 3 판별)
+  - 감지된 버전은 rules 파일에 **명시적으로 기록** (예: "Spring Boot 2.4.5 — 업그레이드 금지")
 
 ---
 
@@ -73,7 +78,7 @@ find . -name "package.json" -not -path "*/node_modules/*" -maxdepth 5 | \
 
 ---
 
-Phase 0 감지 결과에 따라 `.claude/crinity-dev/references/plugin-setup-detection.md`에서 해당 Phase(1~4)를 읽어 실행한다.
+Phase 0 감지 결과에 따라 `.claude/references/plugin-setup-detection.md`에서 해당 Phase(1~4)를 읽어 실행한다.
 
 ---
 
@@ -81,7 +86,24 @@ Phase 0 감지 결과에 따라 `.claude/crinity-dev/references/plugin-setup-det
 
 Phase 0~4에서 수집한 데이터로 누락 파일을 생성한다. 이미 존재하는 파일은 Write 직전 재확인 후 스킵.
 
-**생성 순서**: `CLAUDE.md` → `architecture.md` → `backend-rules.md` → `frontend-rules.md` → `build-commands.md` → `frontend-ui.md` → `prohibitions.md` → `review-checklist.md`
+**생성 순서**: `CLAUDE.md` → `architecture.md` → `backend-rules.md` → `frontend-rules.md` → `build-commands.md` → `frontend-ui.md` → `prohibitions.md` → `review-checklist.md` → references 복사
+
+### references 복사 (Phase 5 마지막)
+
+플러그인 내부 참조 문서를 프로젝트 `.claude/references/`로 복사한다.
+에이전트들이 설치 위치와 무관하게 참조 문서에 접근할 수 있도록 보장하는 단계이다.
+
+| 플러그인 내부 | 복사 대상 |
+|-------------|---------|
+| `references/planner-output-format.md` | `.claude/references/planner-output-format.md` |
+| `references/plugin-setup-detection.md` | `.claude/references/plugin-setup-detection.md` |
+| `references/ui-options-template.html` | `.claude/references/ui-options-template.html` |
+| `references/playwright-cli.md` | `.claude/references/playwright-cli.md` |
+| `references/playwright-cli/*.md` (7개) | `.claude/references/playwright-cli/*.md` |
+| `references/session-context.md` | `.claude/references/session-context.md` |
+
+> 복사 전 대상 파일이 이미 존재하면 스킵한다 (rules 파일과 동일 정책).
+> `session-context.md`가 플러그인 references에 없으면 템플릿을 새로 생성한다.
 
 ### CLAUDE.md — 생성 또는 섹션 병합
 

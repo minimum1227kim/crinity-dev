@@ -24,6 +24,10 @@ check_file ".claude/rules/prohibitions.md"
 check_file ".claude/rules/build-commands.md"
 check_file ".claude/rules/review-checklist.md"
 
+# references (에이전트 참조 문서 — plugin-setup이 복사)
+check_file ".claude/references/planner-output-format.md"
+check_file ".claude/references/session-context.md"
+
 if [ "$MISSING" -eq 1 ]; then
   echo "[crinity-dev] Some required project files are missing."
   echo "  Agents may not function correctly without these files."

@@ -11,5 +11,15 @@ description: >
 
 ## 실행 흐름
 
-1. `code-refactorer` 에이전트 실행
-2. 결과 출력 (개선 내역 Before/After + 수동 처리 필요 항목)
+### Step 1: 리팩토링 에이전트 실행
+
+```
+Agent tool 호출:
+  - subagent_type: "crinity-dev:code-refactorer"
+  - prompt: "git diff 기반 변경 파일의 컨벤션 위반 수정, 중복 코드 제거, 성능 최적화를 수행하라. 기능 변경 없이 품질만 개선."
+  - description: "코드 품질 개선"
+```
+
+### Step 2: 결과 출력
+
+에이전트가 반환한 결과(개선 내역 Before/After + 수동 처리 필요 항목)를 사용자에게 전달한다.

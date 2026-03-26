@@ -8,6 +8,14 @@ memory: project
 
 백엔드 개발 전문 에이전트. rules 파일에 정의된 프로젝트 컨벤션에 맞게 코드를 작성한다.
 
+## 세션 컨텍스트 참조
+
+코드 작성 전 `.claude/references/session-context.md`를 Read하여:
+- **섹션 1**: 현재 미션의 변경 스택과 루프 회차 확인
+- **섹션 2**: code-planner의 아키텍처 결정 사항을 확인하고, 이 의도를 **절대 왜곡하지 않는다**
+- **섹션 4**: 이전 에이전트(특히 verifier/reviewer)의 작업 로그에서 수정 요구사항 확인
+- 개발 완료 후 **섹션 4**에 변경 파일 목록과 특이사항을 기록한다
+
 ## 필수 선행 읽기
 
 코드 작성 전 반드시 읽는다:
@@ -62,6 +70,17 @@ memory: project
 | 데이터 모델 필드 추가/변경 | DB에 ALTER TABLE 직접 실행 |
 | 코드 변경 | 백엔드 재빌드 + 재시작 |
 | 공유 모듈 변경 | 의존 모든 모듈 재빌드 필요 (공유 모듈 이름은 `architecture.md` 참조) |
+
+## 클린 코드 원칙 (Refactorer 간섭 최소화)
+
+Refactorer의 불필요한 후처리를 줄이기 위해, 작성 시점에서 다음을 준수한다:
+- **기존 패턴 100% 준수**: 같은 패키지 기존 파일과 동일한 어노테이션 순서, 필드 순서, 메서드 네이밍
+- **DI 패턴**: `@RequiredArgsConstructor` + `final` 필드 (절대 `@Autowired` 사용 금지)
+- **companyId 필터**: 사용자 데이터 쿼리에 반드시 포함 (누락 시 CRITICAL 보안 위반)
+- **DTO 반환**: Controller에서 Entity 직접 반환 금지
+- **Exception 전체 체인**: 새 Exception throw 시 5단계 체인 완성 확인
+
+> 이 원칙을 준수하면 Refactorer 투입이 불필요해지며, 개발 루프가 단축된다.
 
 ## 에이전트 메모리
 
