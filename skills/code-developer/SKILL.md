@@ -147,3 +147,12 @@ Skill tool 호출:
   - skill: "crinity-dev:task-manager"
   - args: "complete"
 ```
+
+#### 자기학습 (자동)
+
+워크플로우가 완료되면 자기학습 스킬을 실행하여 작업 중 발견한 사항을 기록한다:
+
+```
+Skill tool 호출:
+  - skill: "crinity-dev:self-learn"
+```
