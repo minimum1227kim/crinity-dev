@@ -13,10 +13,12 @@ description: >
 ## 시작 전 준비
 
 1. 현재 대화에서 **계획 텍스트**(code-planner 에이전트 출력)를 확인한다.
-2. `.claude/tasks/` 에서 status: IN_PROGRESS인 `*_task.md` 파일 확인:
+2. **기능 설계 문서** 경로를 확인한다: `.claude/references/feature-spec-{slug}.md`
+   - code-planner 출력에 포함된 경로 사용
+3. `.claude/tasks/` 에서 status: IN_PROGRESS인 `*_task.md` 파일 확인:
    - 존재 시: 태스크 체크리스트를 작업 순서의 참고로 사용
    - 없으면: code-planner 계획 텍스트를 그대로 사용
-3. 계획에서 **스택 유형** 확인: `backend-only` / `frontend-only` / `fullstack`
+4. 계획에서 **스택 유형** 확인: `backend-only` / `frontend-only` / `fullstack`
 
 ---
 
@@ -33,6 +35,7 @@ Agent tool 호출:
   - subagent_type: "crinity-dev:backend-developer"
   - prompt: |
       아래 계획에 따라 백엔드 코드를 작성하라.
+      기능 설계 문서: {feature-spec 경로}
       [계획 텍스트의 백엔드 관련 부분 포함]
       [iteration > 0인 경우: 이전 리뷰 피드백도 포함]
   - description: "백엔드 코드 작성"
@@ -53,6 +56,7 @@ Agent tool 호출:
   - subagent_type: "crinity-dev:frontend-developer"
   - prompt: |
       아래 계획에 따라 프론트엔드 코드를 작성하라.
+      기능 설계 문서: {feature-spec 경로}
       [계획 텍스트의 프론트엔드 관련 부분 포함]
       [iteration > 0인 경우: 이전 리뷰 피드백도 포함]
   - description: "프론트엔드 코드 작성"
@@ -103,7 +107,9 @@ Agent tool 호출:
   - subagent_type: "crinity-dev:code-reviewer"
   - prompt: |
       git 변경 내역을 리뷰하라.
+      기능 설계 문서: {feature-spec 경로}
       [계획 텍스트가 있으면 함께 전달하여 계획 대비 구현 검증도 수행]
+      [설계 문서 대비 구현 일치 여부도 검증]
   - description: "코드 리뷰"
 ```
 
@@ -121,6 +127,19 @@ task.md 존재 시: Skill tool → `"crinity-dev:task-manager"` args `"update"` 
 ### LOOP END
 
 **루프 3회 소진 시:** 미해결 리뷰 항목을 사용자에게 보고하고 수동 대응을 요청한다.
+
+---
+
+## 설계 변경 처리
+
+개발 루프 중 설계 변경이 필요한 경우 (예: 리뷰어가 API 변경을 요구, 구현 중 DB 스키마 변경 필요):
+
+1. **변경 사항 보고**: 개발자 에이전트 또는 스킬이 사용자에게 변경 필요 사항을 보고한다.
+2. **사용자 승인**: 사용자가 변경을 승인한다.
+3. **설계 문서 업데이트**: 개발자 에이전트가 `.claude/references/feature-spec-{slug}.md`의 해당 섹션을 수정한다.
+4. **변경 이력 기록**: 변경 이력 섹션에 버전 업 + 변경 내용 + 에이전트명을 자동 기록한다.
+
+> 설계 문서 수정은 반드시 사용자 승인 후에만 수행한다. 에이전트가 독단으로 설계를 변경하지 않는다.
 
 ---
 

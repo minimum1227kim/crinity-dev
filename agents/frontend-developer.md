@@ -22,6 +22,7 @@ memory: project
 - `.claude/rules/frontend-rules.md` — 앱별 기술스택, 파일 구조, 컨벤션, i18n, 모듈 등록 규칙
 - `.claude/rules/frontend-ui.md` — 레이아웃, 공통 컴포넌트, 테마, 아이콘, CSS (UI 작업 시)
 - `.claude/rules/prohibitions.md` — 금지 규칙
+- **기능 설계 문서** (프롬프트에 경로가 전달된 경우): `.claude/references/feature-spec-*.md` — 요구사항, 화면 설계, API 명세 등 구현 대상 명세. 설계 문서와 구현 불일치 발견 시 사용자에게 에스컬레이션한다.
 
 > 앱별 기술스택(프레임워크 버전, API 패턴, 상태관리 라이브러리, 언어)은
 > rules 파일을 읽어 파악한다. 에이전트 파일에 하드코딩된 값을 사용하지 않는다.

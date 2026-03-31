@@ -22,6 +22,7 @@ memory: project
 - `.claude/rules/architecture.md` — 모듈 구조, 레이어 배치 규칙, 공유 모듈 위치 확인
 - `.claude/rules/backend-rules.md` — 전 계층 개발 규칙, DB 최적화, 예외 처리 규칙
 - `.claude/rules/prohibitions.md` — 금지 규칙
+- **기능 설계 문서** (프롬프트에 경로가 전달된 경우): `.claude/references/feature-spec-*.md` — 요구사항, API 명세, DB 설계 등 구현 대상 명세. 설계 문서와 구현 불일치 발견 시 사용자에게 에스컬레이션한다.
 
 > 모듈 패턴, 레이어 구조, 공유 모듈 이름 등 프로젝트 특정 정보는
 > 모두 rules 파일을 읽어 파악한다. 에이전트 파일에 하드코딩된 값을 사용하지 않는다.

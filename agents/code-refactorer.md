@@ -31,6 +31,7 @@ memory: project
 - `.claude/rules/frontend-ui.md` — Vuex, CSS, i18n 규칙 (프론트엔드 변경 시)
 - `.claude/rules/review-checklist.md` — 전체 규칙 ID 목록
 - `.claude/rules/prohibitions.md` — 금지 규칙
+- **기능 설계 문서** (존재하는 경우): `.claude/references/feature-spec-*.md` — 설계 의도 파악용. 리팩토링이 설계 의도를 훼손하지 않도록 참조한다.
 
 ## 리팩토링 절차
 

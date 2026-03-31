@@ -7,7 +7,7 @@
     {
       "name": "crinity-dev",
       "description": "Crinity 개발 워크플로우 — 에이전트 + 스킬 + 훅. 코드 계획, 개발, 리뷰, 테스트를 자동화하는 개발 파이프라인 플러그인.",
-      "version": "0.2.0",
+      "version": "0.2.2",
       "author": {
         "name": "minimum1227.kim"
       },

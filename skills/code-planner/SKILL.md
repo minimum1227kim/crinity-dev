@@ -39,19 +39,35 @@ description: >
 
 ### Step 1: `code-planner` 에이전트 실행
 
-정제된 요구사항(또는 원본 요청)을 전달하여 코드베이스 탐색 + 아키텍처 설계 + 테스트 시나리오를 수행한다.
+정제된 요구사항(또는 원본 요청)을 전달하여 코드베이스 탐색 + 아키텍처 설계 + 테스트 시나리오 + **기능 설계 문서 생성**을 수행한다.
+
+**사전 준비:**
+
+1. 기능명에서 slug를 생성한다 (kebab-case 변환. 예: "주소록 그룹 관리" → `contact-group-management`)
+2. 플러그인 공용 references에서 기능 설계 문서 템플릿을 Read한다:
+   - 스킬 기준 상대 경로: `../../references/feature-spec-template.md`
 
 **실행 방법:**
 
 ```
 Agent tool 호출:
   - subagent_type: "crinity-dev:code-planner"
-  - prompt: 정제된 요구사항 전체 텍스트 (Step 0 결과 또는 원본 요청)
+  - prompt: |
+      ## 요구사항
+      {정제된 요구사항 전체 텍스트 (Step 0 결과 또는 원본 요청)}
+
+      ## 기능 설계 문서 생성 지시
+      아래 템플릿을 기반으로 기능 설계 문서를 작성하여
+      `.claude/references/feature-spec-{slug}.md`에 저장하라.
+      slug: {slug}
+
+      ### 템플릿 내용
+      {Read한 템플릿 전체 내용}
   - description: "코드베이스 탐색 및 설계"
 ```
 
-에이전트가 반환한 **계획 텍스트**(설계 결정 사항, 파일별 변경 계획, 변경 규모, 테스트 시나리오 포함)를 보관한다.
-이 계획 텍스트는 Step 2~5 및 이후 code-developer 스킬에서 계속 참조된다.
+에이전트가 반환한 **계획 텍스트**(설계 결정 사항, 파일별 변경 계획, 변경 규모, 테스트 시나리오 포함)와 **기능 설계 문서 경로**를 보관한다.
+이 계획 텍스트와 설계 문서는 Step 2~5 및 이후 code-developer 스킬에서 계속 참조된다.
 
 ---
 
@@ -74,7 +90,11 @@ UI 옵션이 없거나 1개만 있는 경우 이 단계를 건너뛴다.
 
 ### Step 3: 사용자 컨펌 대기
 
-⏸ 계획 전체를 사용자에게 제시하고 컨펌을 기다린다. 수정 요청 시 에이전트 재실행 또는 계획 수동 수정.
+⏸ 다음 산출물을 사용자에게 제시하고 컨펌을 기다린다:
+1. **개발 계획** (설계 결정 사항, 파일별 변경 계획, 변경 규모, 테스트 시나리오)
+2. **기능 설계 문서** (`.claude/references/feature-spec-{slug}.md` — 요구사항, 화면설계, API, DB 명세)
+
+수정 요청 시 에이전트 재실행 또는 계획/설계문서 수동 수정.
 
 ---
 
@@ -124,4 +144,4 @@ Skill tool 호출:
   - skill: "crinity-dev:code-developer"
 ```
 
-code-developer 스킬은 현재 대화의 계획 텍스트와 task.md(있는 경우)를 참조하여 개발 루프를 실행한다.
+code-developer 스킬은 현재 대화의 계획 텍스트, 기능 설계 문서(`.claude/references/feature-spec-{slug}.md`), task.md(있는 경우)를 참조하여 개발 루프를 실행한다.

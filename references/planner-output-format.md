@@ -1,6 +1,7 @@
 # Code Planner 출력 형식
 
-> code-planner 에이전트가 Step 8에서 Read하여 이 형식으로 분석 결과와 개발 계획을 출력한다.
+> code-planner 에이전트가 Step 9에서 Read하여 이 형식으로 분석 결과와 개발 계획을 출력한다.
+> Step 8에서 기능 설계 문서(feature-spec-{slug}.md)를 별도 생성한 후, 이 형식으로 계획을 출력한다.
 
 ---
 
@@ -72,4 +73,12 @@
 4. {조작2}
 → 기대: {구체적 검증 조건}
 → 검증: {텍스트 확인 / 요소 존재 확인 / API 응답 확인}
+
+---
+
+## 기능 설계 문서
+
+📄 **경로**: `.claude/references/feature-spec-{slug}.md`
+- 요구사항 정의서, 화면 설계서, API 명세서, DB 설계서 포함
+- 후속 에이전트(developer, reviewer, tester)가 참조하는 설계 명세 SSOT
 ```
